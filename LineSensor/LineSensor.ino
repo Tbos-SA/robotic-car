@@ -8,7 +8,7 @@
 
 /**************************************************/
 
-
+   
 /* DECLARATIONS and INITIALIZATIONS */
 int AN[8]  = {0};       //Storage for ANALOG values from the line Sensor
 char result[50] = "";   //Store string vlaues of the analog inputs
