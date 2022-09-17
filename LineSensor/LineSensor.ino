@@ -119,18 +119,18 @@ void loop() {
   
   updateLineValues();
   readGyro();
-//  moveForward();
-//  delay(5000);
-//  moveStop();
-//  delay(500);
-//  moveBack();
-//  delay(5000);
-//  moveStop();
-//  delay(500);
-//  turnRight();
-//  delay(3000);
-//  turnLeft();
-//  delay(3000);
+  moveForward();
+  delay(5000);
+  moveStop();
+  delay(500);
+  moveBack();
+  delay(5000);
+  moveStop();
+  delay(500);
+  turnRight();
+  delay(3000);
+  turnLeft();
+  delay(3000);
 }
 
 /*This function is used to move motor 
