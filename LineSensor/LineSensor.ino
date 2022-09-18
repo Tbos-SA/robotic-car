@@ -5,10 +5,10 @@
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
     #include "Wire.h"
 #endif
-
+ 
 /**************************************************/
 
-
+   
 /* DECLARATIONS and INITIALIZATIONS */
 int AN[8]  = {0};       //Storage for ANALOG values from the line Sensor
 char result[50] = "";   //Store string vlaues of the analog inputs
@@ -119,18 +119,18 @@ void loop() {
   
   updateLineValues();
   readGyro();
-//  moveForward();
-//  delay(5000);
-//  moveStop();
-//  delay(500);
-//  moveBack();
-//  delay(5000);
-//  moveStop();
-//  delay(500);
-//  turnRight();
-//  delay(3000);
-//  turnLeft();
-//  delay(3000);
+  moveForward();
+  delay(5000);
+  moveStop();
+  delay(500);
+  moveBack();
+  delay(5000);
+  moveStop();
+  delay(500);
+  turnRight();
+  delay(3000);
+  turnLeft();
+  delay(3000);
 }
 
 /*This function is used to move motor 
