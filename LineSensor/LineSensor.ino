@@ -1,3 +1,5 @@
+
+
 #include <Servo.h> // Include the servo library
 
 
@@ -91,24 +93,15 @@ void setup() {
   pinMode(LB, OUTPUT);
 
  servo_init();
- gyro_init();
+ //gyro_init();
 
 
- servo_speed = 15;
- motor_speed = 150;
+ servo_speed = 20;
+ motor_speed = 255;
  
   R_Speed = motor_speed;
   L_Speed = motor_speed;
-// RS_Speed = 90-15; 
-// LS_Speed = 90+15;
-////
-// SR_turn_Speed = 90-10;
-// SL_turn_Speed = 90+10;
-//  
-//robotForward();
-//  delay(5000);
-//  robotStop();
-// delay(5000);
+
 }
 
 void loop() {
@@ -118,118 +111,97 @@ void loop() {
   s4 = !digitalRead(ir4);  //Right Sensor
   s5 = !digitalRead(ir5);  //Right Most Sensor
 
-  Serial.print(s1);
-  Serial.print(s2);
-  Serial.print(s3);
-  Serial.print(s4);
-  Serial.print(s5);
-  Serial.println();
 //readGyro();
- // delay(100);
-   robotForward();
-//    delay(5000);
-//    robotStop();
-//    delay(2000);
-//    robotLeft();
-//    delay(5000);
-//    robotStop();
-//    delay(2000);
-//    robotRight();
-//    delay(5000);
-//    robotStop();
-//    delay(2000);
+
 //servoForward(); //tested: WORKING
 //servoLeft();    //tested: WORKING
 //servoRight();   //tested: WORKING
 //motorForward(); //tested: WORKING
 //motorRight();   //tested: WORKING
 //motorLeft();    //tested: WORKING
+//robotLeft(); 
 
-if (!s1 && !s2 && s3 && !s4 && !s5){
+  
+  if (!s1 && !s2 && s3 && !s4 && !s5){
+    robotForward();
+    delay(100);
+  }
+  else if (!s1 && !s2 && !s3 && !s4 && !s5){
+    //If all white
+  robotForward();
+  delay(50);
+  }
+   else if (s1 && s2 && s3 && s4 && s5){
+      //If all black
   robotForward();
   delay(100);
-}
+  }
+  else if (!s1 && s2 && !s3 && !s4 && !s5){
+    servo_speed = 20;
+     robotStop();
+    delay(10);
+    robotLeft(); 
+    delay(100);
+    robotForward();
+    delay(100);
+  }
+  else if (s1 && !s2 && !s3 && !s4 && !s5){
+     robotStop();
+    delay(10);
+    robotLeft(); 
+    delay(100);
+  }
+    else if (s1 && !s2 && !s3 && !s4 && !s5){
+     robotStop();
+    delay(10);
+    robotLeft(); 
+    delay(100);
+  }
+   else if (s1 && s2 && s3 && !s4 && !s5){
+     robotStop();
+    delay(10);
+    robotLeft(); 
+    delay(100);
+  }
 
-//*******************  left movements *******************
-if (s1 && s2 && s3 && s4 && !s5) {
-  robotStop();
-  delay(250);
-  robotLeft();
-  delay(250);
+
+  else if (!s1 && !s2 && !s3 && s4 && !s5){
+     robotStop();
+    delay(10);
+    robotRight(); 
+    delay(100);
+    robotForward();
+    delay(100);
+  }
+  else if (!s1 && !s2 && !s3 && !s4 && s5){
+     robotStop();
+    delay(10);
+    robotRight(); 
+    delay(100);
+    robotForward();
+     delay(100);
+  }
+  else if (!s1 && !s2 && s3 && s4 && s5){
+     robotStop();
+    delay(10);
+    robotRight(); 
+    delay(100);
+    robotForward();
+    delay(100);
+  }
+  else if (s1 && s2 && s3 && s4 && s5){
+  servo_speed = 40;
+  }
+
+  else {
+    servo_speed = 20;
+    robotStop();
+    delay(50);
+    robotForward();
+    delay(150);
+  }
   
-}
-if (s1 && s2 && s3 && !s4 && !s5) {
 
-  robotStop();
-  delay(100);
-  robotLeft();
-  delay(100);
-}
-if (s1 && s2 && !s3 && !s4 && !s5) {
-
-  robotStop();
-  delay(100);
-  robotLeft();
-  delay(100);
-}
-
-if (s1 && s2 && s3 && !s4 && !s5) {
-  robotStop();
-  delay(100);
-  robotLeft();
-  delay(100);
-}
-//--------------------------------------------
-
-//**************   Right Movements *********************
-//if (!s1 && !s2 && !s3 && !s4 && s5) {
-//  robotStop();
-//  delay(250);
-//  robotRight();
-//}
-if (!s1 && !s3 &&  s5) {
-  robotStop();
-  delay(100);
-  robotRight();
-  delay(100);
-}
-
-//if (!s1 && !s2 && !s3 && s4 && s5) {
-//  robotStop();
-//  delay(250);
-//  robotRight();
-//}
-
-if (!s1 && !s2 && s3 && s4 && s5) {
-  robotStop();
-  delay(100);
-  motorRight();
-  delay(100);
-}
-if (!s1 && s2 && s3 && s4 && s5) {
-  robotStop();
-  delay(100);
-  robotRight();
-  delay(100);
-}
-
-//------------------------------------------------
-  if (!s1 && !s2 && s3 && !s4 && !s5){
-      motorForward();
-      servoForward();
-      delay(250);
-//    
-  }
-   if (!s1 && !s2 && !s3 && !s4 && !s5){
-
-      motorStop();
-      servoStop();
-  }
-//    if (s1 && s2 && s3 && s4 && s5){
-//
-//      motorStop();
-//      servoStop();
-//  }
 }
 
 void servo_init(){
@@ -252,15 +224,15 @@ void  servoStop(){
 
 void servoLeft(){
   //Tested: WORKING GOOD to TURN LEFT
-  left_servo.write(90 - servo_speed);
- right_servo.write(90 - servo_speed);
- delay(250);
+  left_servo.write(90 );
+ right_servo.write(90 - 10);
+ //delay(250);
 }
 void servoRight(){
   //Tested: WORKING GOOD to TURN RIGHT
-  left_servo.write(90 + servo_speed);
- right_servo.write(90 + servo_speed);
- delay(250);
+  left_servo.write(90 + 10);
+ right_servo.write(90 );
+ //delay(250);
 }
 
 void motorForward(){
@@ -301,14 +273,14 @@ void motorRight(){
      digitalWrite(RF, LOW);
     digitalWrite(RB, HIGH);
     
-    analogWrite(enL,motor_speed);  
+    analogWrite(enL,0);  
     digitalWrite(LF, HIGH);
     digitalWrite(LB, LOW);
 }
 
 void motorLeft(){
   
-     analogWrite(enR,motor_speed);
+     analogWrite(enR,0);
      digitalWrite(RF, HIGH);
      digitalWrite(RB, LOW);
     
@@ -322,11 +294,11 @@ void robotForward(){
   servoForward();
 }
 void robotLeft(){
-  motorLeft();
+  motorStop;
   servoLeft();
 }
 void robotRight(){
-  motorRight();
+  //motorRight();
   servoRight();
 }
 
@@ -335,7 +307,7 @@ void robotStop(){
   servoStop();
 }
 
-void gyro_init(){
+/*void gyro_init(){
   
      #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
         Wire.begin();
@@ -437,4 +409,4 @@ void readGyro(){
             Serial.println(ypr[2] * 180/M_PI);
         #endif
     }
-}
+}*/
